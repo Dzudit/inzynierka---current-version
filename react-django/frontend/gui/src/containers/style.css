@@ -1,0 +1,66 @@
+.login{
+   width: 40%;
+   margin: auto;
+   padding-top: 70px;
+}
+.add{
+ width: 50%;
+ float: left;
+ height: 100px;
+ margin-top: 100px;
+ padding-left: 8%; 
+
+}
+.table{
+    width: 50%;
+    float: left;
+    height: 100px;
+    padding-right: 8%;
+}
+.cont-paiments {
+    margin-top: 70px; 
+}
+.add-button {
+    margin-left: 60%;
+}
+.progres {
+    margin-left: 20%;
+    margin-top: 10%;
+    float: left;
+}
+.limit {
+  float: left;
+  margin-left: 10%;
+  margin-top: 14%;
+  font-size: 35px;
+}
+.categories-progres{
+  
+  padding-right: 15%;
+  margin-top: 20%;
+}
+.limitCat {
+    float: left;
+    margin-top: 14%;
+    font-size: 35px;
+
+}
+.logout {
+    float: right;
+}
+.settings{
+    margin-top: 10%;
+}
+.add-button-settings {
+    margin-left: 38%;
+}
+.user {
+    text-align: center;
+    margin-top: 3%;
+    font-size: 70px;
+}
+.salary {
+    margin-top: 2%;
+    font-size: 40px;
+    text-align: center;
+}
