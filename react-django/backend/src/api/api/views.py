@@ -34,6 +34,7 @@ class CategorieViewSet(viewsets.ModelViewSet):
     serializer_class = CategorieSerializer
     queryset = Categorie.objects.all()
 
+#to do Damian -- this dosnt work
 class CustomObtainAuthToken(ObtainAuthToken):
     def get(self, request, *args, **kwargs):
         response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)

@@ -12,6 +12,7 @@ from .views import CustomObtainAuthToken
 #     path('<pk>/delete/', CategorieDeleteView.as_view()),
 #]
 
+#to do Damian
 router = DefaultRouter()
 router.register(r'', CategorieViewSet, basename='categorie')
 urlpatterns = router.urls
