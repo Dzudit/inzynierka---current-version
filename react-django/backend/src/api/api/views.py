@@ -1,11 +1,6 @@
 from rest_framework import viewsets
 from api.models import Categorie
 from .serializers import CategorieSerializer
-from django.contrib.auth.models import User
-
-from rest_framework.authtoken.views import ObtainAuthToken
-from rest_framework.authtoken.models import Token
-from rest_framework.response import Response
 
 # class CategorieListView(ListAPIView):
 #     queryset = Categorie.objects.all()
@@ -34,9 +29,4 @@ class CategorieViewSet(viewsets.ModelViewSet):
     serializer_class = CategorieSerializer
     queryset = Categorie.objects.all()
 
-#to do Damian -- this dosnt work
-class CustomObtainAuthToken(ObtainAuthToken):
-    def get(self, request, *args, **kwargs):
-        response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)
-        token = Token.objects.get(key=response.data['token'])
-        return Response({'token': token.key, 'username': token.username})
+#tutaj potrzedbje dodac cos co mi zwric token

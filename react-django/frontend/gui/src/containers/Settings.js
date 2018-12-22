@@ -36,7 +36,7 @@ class Settings extends React.Component {
 
     }
 
-    // to Do Damian -- request for username
+    // to Do Damian send request to get username
     componentWillReceiveProps(newProps) {
         console.log("props", newProps);
         axios.defaults.headers = {
