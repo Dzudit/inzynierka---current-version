@@ -35,7 +35,7 @@ class Settings extends React.Component {
         }
 
     }
-
+    // to Damian wyslam geta o username
     componentWillReceiveProps(newProps) {
         console.log("props", newProps);
         axios.defaults.headers = {
