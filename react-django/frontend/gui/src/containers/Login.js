@@ -15,13 +15,16 @@ const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 
 class NormalLoginForm extends React.Component {
     handleSubmit = (e) => {
-        e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                this.props.onAuth(values.userName, values.password)
+                this.props.onAuth(values.userName, values.password);
             }
         });
-        this.props.history.push('/settings');
+    }
+    componentWillReceiveProps(newProps) {
+        if (newProps.token) {
+            this.props.history.push('/settings');
+        }
     }
 
     render() {
@@ -72,7 +75,8 @@ const WrappedNormalLoginForm = Form.create()(NormalLoginForm);
 const mapSetToProps = state => {
     return {
         loading: state.loading,
-        error: state.error
+        error: state.error,
+        token: state.token
     }
 }
 

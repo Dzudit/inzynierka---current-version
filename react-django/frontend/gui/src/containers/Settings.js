@@ -36,24 +36,30 @@ class Settings extends React.Component {
 
     }
 
+    componentWillMount() {
+        console.log("mount");
+    }
+
     componentWillReceiveProps(newProps) {
         console.log("props", newProps);
-        axios.defaults.headers = {
-            "Content-Type": "application/json",
-            Authorization: newProps.token
+        if (newProps.token) {
+            axios.defaults.headers = {
+                "Content-Type": "application/json",
+                Authorization: newProps.token
+            }
+            axios.get('http://127.0.0.1:8000/username/')
+                .then(res => {
+                    console.log("resp settings", res);
+                    //this.setState({ username: res.data })
+                })
         }
-        axios.get('http://127.0.0.1:8000/username/')
-            .then(res => {
-                console.log("resp settings", res);
-                //this.setState({ username: res.data })
-            })
     }
 
 
     render() {
         return (
             <div>
-                <div className="user"> Hello {this.state.username}! </div>
+                <div className="user"> {this.state.username} take control of your finances! </div>
                 <div className="salary"> Your salary is: 4000 </div>
                 <div className="settings">
                     <Form onSubmit={event => this.handleFormSubmit(event, this.props.reqType, this.props.fieldID)} >

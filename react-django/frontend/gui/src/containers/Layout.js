@@ -23,7 +23,7 @@ class CustomLayout extends React.Component {
                     >
                         {console.log("authenticated", this.props.isAuthenticated)}
                         {this.props.isAuthenticated ? <Menu.Item key="2"><Link to="/settings">User Settings</Link></Menu.Item> : <Menu.Item key="2"><Link to="/login">Log in</Link></Menu.Item>}
-                        {this.props.isAuthenticated ? <Menu.Item key="1"><Link to="/categories">Categories</Link></Menu.Item> : null}
+                        {true ? <Menu.Item key="1"><Link to="/categories">Planing</Link></Menu.Item> : null}
                         {this.props.isAuthenticated ? <Menu.Item key="3"><Link to="/paiments">Paiments</Link></Menu.Item> : null}
                         {this.props.isAuthenticated ? <Menu.Item key="4"><Link to="/charts">Statistics</Link></Menu.Item> : null}
                         <Menu.Item key="5" ><Link to="/"> example</Link></Menu.Item>

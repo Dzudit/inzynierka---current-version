@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import 'antd/dist/antd.css';
-import TablePaiments from '../components/table';
+import TableCategory from '../components/tableCategory';
 import FormCategory from '../components/FormCategory';
 import { Progress } from 'antd';
 
@@ -11,16 +11,16 @@ class Categories extends Component {
             <div className="cont-paiments">
                 <div className="add">
                     <FormCategory />
+                    <div className="limitCat">You have 700PLN to plan, Salary 4500PLN</div>
                     <div className="categories-progres">
                         jedzenie<Progress percent={70} status="active" />
                         samochod<Progress percent={30} strokeColor="yellow" status="active" />
                         zdrowie<Progress percent={60} strokeColor="green" status="active" />
-                        ubrania<Progress percent={100} status="exception" />
+                        konto niezaleznosci finansowej<Progress percent={40} status="exception" />
                     </div>
-                    <div className="limitCat">Sum of limits: 700, Salary: 4500</div>
                 </div>
                 <div className="table">
-                    <TablePaiments data="categories" />
+                    <TableCategory data="categories" />
                 </div>
             </div>
         );
