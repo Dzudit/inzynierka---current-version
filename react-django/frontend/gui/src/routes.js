@@ -9,7 +9,6 @@ import Paiments from './containers/paiments';
 import Categories from './containers/Categories';
 import Settings from './containers/Settings';
 
-
 const BaseRouter = () => (
     <div>
         <Route exact path='/' component={Field} />

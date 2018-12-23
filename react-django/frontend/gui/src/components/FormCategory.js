@@ -10,33 +10,18 @@ class FormCategory extends React.Component {
 
     handleFormSubmit = (event, reqType, fieldID) => {
         event.preventDefault();
-        const dupa = event.target.elements.title.value
-        const dupa2 = event.target.elements.description.value;
-        switch (reqType) {
-            case 'post':
-                return axios.post(`http://127.0.0.1:8000/api/`, {
-                    title: dupa,
-                    description: dupa2
-                })
-                    .then(res => console.log(res))
-                    .catch(er => console.error(er))
-
-            case 'put':
-                return axios.put(`http://127.0.0.1:8000/api/${fieldID}/`, {
-                    title: dupa,
-                    description: dupa2
-                })
-                    .then(res => console.log(res))
-                    .catch(er => console.error(er))
-            default: return null
+        const amount = event.target.elements.amount.value;
+        const name = event.target.elements.name.value;
+        if (name && !isNaN(amount) && amount > 0 && this.state.select) {
+            axios.post(`http://192.168.1.102:8000/api/category/create/`, {
+                "name": name, "price": amount, "type": this.state.select
+            })
+                .then(res => { })
+                .catch(er => console.error(er))
         }
-
     }
     handleSelectChange = (value) => {
-        console.log(value);
-        this.props.form.setFieldsValue({
-            note: `Hi, ${value === 'jedzenie' ? 'man' : 'lady'}!`,
-        });
+        this.setState({ select: value });
     }
 
     render() {
@@ -49,7 +34,7 @@ class FormCategory extends React.Component {
                         labelCol={{ span: 5 }}
                         wrapperCol={{ span: 12 }}
                     >
-                        <Input name="title" placeholder="Put title here" />
+                        <Input name="name" placeholder="Put title here" />
                     </FormItem>
                     <FormItem
                         label="Type" // to do, usunac to dla update, nie pozwolic uztkownikowi tego zmienic
@@ -63,8 +48,8 @@ class FormCategory extends React.Component {
                                 placeholder="Select category"
                                 onChange={this.handleSelectChange}
                             >
-                                <Option value="male">paiments</Option>
-                                <Option value="female">savings</Option>
+                                <Option value="paiments">paiments</Option>
+                                <Option value="savings">savings</Option>
                             </Select>
                         )}
                     </FormItem>
@@ -73,10 +58,10 @@ class FormCategory extends React.Component {
                         labelCol={{ span: 5 }}
                         wrapperCol={{ span: 12 }}
                     >
-                        <Input name="description" placeholder="Enter some content..." />
+                        <Input name="amount" placeholder="Enter some content..." />
                     </FormItem>
                     <FormItem>
-                        <div className="add-button"><Button type="primary" htmlType="submit">Add/update</Button></div>
+                        <div className="add-button"><Button type="primary" htmlType="submit">Add</Button></div>
                     </FormItem>
                 </Form>
             </div>

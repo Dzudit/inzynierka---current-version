@@ -8,59 +8,37 @@ const FormItem = Form.Item;
 class Settings extends React.Component {
 
     state = {
-        username: null
+        salary: null
     }
 
-    handleFormSubmit = (event, reqType, fieldID) => {
+    handleFormSubmit = (event) => {
         event.preventDefault();
-        const dupa = event.target.elements.title.value
-        const dupa2 = event.target.elements.description.value;
-        switch (reqType) {
-            case 'post':
-                return axios.post(`http://127.0.0.1:8000/api/`, {
-                    title: dupa,
-                    description: dupa2
-                })
-                    .then(res => console.log(res))
-                    .catch(er => console.error(er))
-
-            case 'put':
-                return axios.put(`http://127.0.0.1:8000/api/${fieldID}/`, {
-                    title: dupa,
-                    description: dupa2
-                })
-                    .then(res => console.log(res))
-                    .catch(er => console.error(er))
-            default: return null
+        const salary = event.target.elements.salary.value
+        if (!isNaN(salary) && salary > 30) {
+            axios.defaults.headers = {
+                "Access-Control-Allow-Origin": "http://192.168.1.102:8000"
+            }
+            axios.put(`http://192.168.1.102:8000/api/user/list/`, {
+                salary: salary
+            })
+                .then(res => { this.setState({ salary: salary }) })
+                .catch(er => console.error(er))
         }
-
     }
 
     componentWillMount() {
-        console.log("mount");
+        axios.get('http://192.168.1.102:8000/api/user/')
+            .then(res => {
+                console.log("resp settings", res);
+                this.setState({ salary: res.salary })
+            })
     }
-
-    componentWillReceiveProps(newProps) {
-        console.log("props", newProps);
-        if (newProps.token) {
-            axios.defaults.headers = {
-                "Content-Type": "application/json",
-                Authorization: newProps.token
-            }
-            axios.get('http://127.0.0.1:8000/username/')
-                .then(res => {
-                    console.log("resp settings", res);
-                    //this.setState({ username: res.data })
-                })
-        }
-    }
-
 
     render() {
         return (
             <div>
-                <div className="user"> {this.state.username} take control of your finances! </div>
-                <div className="salary"> Your salary is: 4000 </div>
+                <div className="user"> Take control of your finances! </div>
+                <div className="salary"> Your salary is: {this.state.salary} </div>
                 <div className="settings">
                     <Form onSubmit={event => this.handleFormSubmit(event, this.props.reqType, this.props.fieldID)} >
                         <FormItem
@@ -68,7 +46,7 @@ class Settings extends React.Component {
                             labelCol={{ span: 5 }}
                             wrapperCol={{ span: 5 }}
                         >
-                            <Input name="title" placeholder="Put amout here" />
+                            <Input name="salary" placeholder="Put amout here" />
                         </FormItem>
                         <FormItem>
                             <div className="add-button-settings"><Button type="primary" htmlType="submit">Change</Button></div>
