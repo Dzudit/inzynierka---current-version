@@ -1,26 +1,20 @@
 import { Table, Button } from 'antd';
 import React from 'react';
+import axios from 'axios';
 
 const columns = [{
     title: 'Data',
-    dataIndex: 'name',
+    dataIndex: 'date',
 }, {
     title: 'Title',
-    dataIndex: 'age',
+    dataIndex: 'title',
 }, {
     title: 'Price',
-    dataIndex: 'address',
+    dataIndex: 'price',
+}, {
+    title: 'Category',
+    dataIndex: 'category',
 }];
-
-const data = [];
-for (let i = 0; i < 20; i++) {
-    data.push({
-        key: i,
-        name: `10.12.2018 ${i}`,
-        age: "obiad",
-        address: `24,80  ${i}`,
-    });
-}
 
 class TablePaiments extends React.Component {
     state = {
@@ -39,9 +33,25 @@ class TablePaiments extends React.Component {
         }, 1000);
     }
 
+    delete = () => {
+        this.state.selectedRowKeys.forEach(element => {
+            let id = this.state.data[element].id;
+            axios.delete(`http://localhost:8000/api/payments/${id}/delete/`)
+        });
+        axios.get('http://localhost:8000/api/payments/').then(resp =>
+            this.setState({ data: resp.data })
+        )
+        this.start();
+    }
+
     onSelectChange = (selectedRowKeys) => {
-        console.log('selectedRowKeys changed: ', selectedRowKeys);
         this.setState({ selectedRowKeys });
+    }
+
+    componentWillReceiveProps(props) {
+        axios.get('http://localhost:8000/api/payments/').then(resp =>
+            this.setState({ data: resp.data })
+        )
     }
 
     render() {
@@ -56,7 +66,7 @@ class TablePaiments extends React.Component {
                 <div style={{ marginBottom: 16 }}>
                     <Button
                         type="primary"
-                        onClick={this.start}
+                        onClick={this.delete}
                         disabled={!hasSelected}
                         loading={loading}
                     >
@@ -66,7 +76,7 @@ class TablePaiments extends React.Component {
                         {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
                     </span>
                 </div>
-                <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+                <Table rowSelection={rowSelection} columns={columns} dataSource={this.state.data} />
             </div>
         );
     }

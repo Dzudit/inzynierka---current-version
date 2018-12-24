@@ -24,11 +24,13 @@ class ProgressBar extends Component {
         return (
             <div>
                 <div className="limitCat">You have 700PLN to plan, Salary {this.state.salary ? this.state.salary : 99}PLN</div>
-                <div className="categories-progres">
-                    jedzenie<Progress percent={70} status="active" />
-                    samochod<Progress percent={30} strokeColor="yellow" status="active" />
-                    zdrowie<Progress percent={this.getPercent(4000, 50)} strokeColor="green" status="active" />
-                    konto niezaleznosci finansowej<Progress percent={40} status="exception" />
+                <div>
+                    <div className="categories-progres">
+
+                        samochod<Progress percent={30} strokeColor="yellow" status="active" />
+                        zdrowie<Progress percent={this.getPercent(4000, 50)} strokeColor="green" status="active" />
+                        konto niezaleznosci finansowej<Progress percent={40} status="exception" />
+                    </div>
                 </div>
             </div>
         );

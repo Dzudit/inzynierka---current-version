@@ -6,7 +6,18 @@ import { Progress } from 'antd';
 
 class Paiments extends Component {
 
+    state = {}
+
+    componentDidMount() {
+        this.setState({ update: "true" })
+    }
+
+    update = () => {
+        this.setState({ update: "true" })
+    }
+
     render() {
+        //sumowac paymentsy dla miesiaca obecnego
         return (
             <div className="cont-paiments">
                 <div className="add">
@@ -14,10 +25,10 @@ class Paiments extends Component {
                     <div className="progres">
                         <Progress type="circle" percent={75} />
                     </div>
-                    <div className="limit">Limit: 400</div>
+                    <div className="limit">Salary: 4000</div>
                 </div>
                 <div className="table">
-                    <TablePaiments />
+                    <TablePaiments update={this.state.update} />
                 </div>
             </div>
         );

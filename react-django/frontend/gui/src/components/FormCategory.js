@@ -29,6 +29,7 @@ class FormCategory extends React.Component {
         this.setState({ select: value });
     }
 
+
     render() {
         const { getFieldDecorator } = this.props.form;
         return (

@@ -5,15 +5,16 @@ import './style.css';
 import axios from 'axios';
 
 const columns = [{
-    title: 'name',
+    title: 'Name',
     dataIndex: 'name',
 }, {
-    title: 'type',
+    title: 'Type',
     dataIndex: 'type',
 }, {
-    title: 'limit',
+    title: 'Limit',
     dataIndex: 'limit',
-}];
+}
+];
 
 class TableCategory extends React.Component {
     state = {

@@ -7,38 +7,40 @@ const Option = Select.Option;
 
 class FormPaiments extends React.Component {
 
+    state = {
+        category: null,
+        selectedCategory: null,
+        SelectedDate: null
+    }
+
     handleFormSubmit = (event, reqType, fieldID) => {
         event.preventDefault();
-        const dupa = event.target.elements.title.value
-        const dupa2 = event.target.elements.description.value;
-        switch (reqType) {
-            case 'post':
-                return axios.post(`http://127.0.0.1:8000/api/`, {
-                    title: dupa,
-                    description: dupa2
-                })
-                    .then(res => console.log(res))
-                    .catch(er => console.error(er))
+        const title = event.target.elements.title.value
+        const price = event.target.elements.price.value
+        if (this.state.selectedCategory && !isNaN(price) && price > 0 && this.state.SelectedDate) {
+            axios.post(`http://localhost:8000/api/payments/create/`, {
+                "title": title, "price": price, "date": this.state.SelectedDate, "category_id": this.state.selectedCategory
+            })
+                .then(res => {
+                    console.log("added", this.props);
 
-            case 'put':
-                return axios.put(`http://127.0.0.1:8000/api/${fieldID}/`, {
-                    title: dupa,
-                    description: dupa2
                 })
-                    .then(res => console.log(res))
-                    .catch(er => console.error(er))
-            default: return null
+                .catch(er => console.error(er))
         }
+    }
 
+    componentDidMount() {
+        axios.get('http://localhost:8000/api/category/').then(resp =>
+            this.setState({ category: resp.data })
+        )
     }
 
     handleSelectChange = (value) => {
-        console.log(value);
-        this.props.form.setFieldsValue({
-            note: `Hi, ${value === 'jedzenie' ? 'man' : 'lady'}!`,
-        });
+        this.setState({ selectedCategory: value })
     }
-
+    dataChange = (value, valueString) => {
+        this.setState({ SelectedDate: valueString });
+    }
     render() {
         const formItemLayout = {
             labelCol: {
@@ -58,33 +60,33 @@ class FormPaiments extends React.Component {
             <div>
                 <Form onSubmit={event => this.handleFormSubmit(event, this.props.reqType, this.props.fieldID)} >
                     <FormItem
-                        label="Category"
-                        labelCol={{ span: 5 }}
-                        wrapperCol={{ span: 5 }}
-                    >
-                        {getFieldDecorator('category', {
-                            rules: [{ required: true, message: 'Please select your gender!' }],
-                        })(
-                            <Select
-                                placeholder="Select category"
-                                onChange={this.handleSelectChange}
-                            >
-                                <Option value="male">jedzenie</Option>
-                                <Option value="female">samochod</Option>
-                                <Option value="a">mieszkanie</Option>
-                                <Option value="d">ubrania</Option>
-                            </Select>
-                        )}
-                    </FormItem>
-                    <FormItem
                         {...formItemLayout}
                         label="DatePicker"
                         labelCol={{ span: 5 }}
                         wrapperCol={{ span: 18 }}
                     >
                         {getFieldDecorator('date-picker', config)(
-                            <DatePicker />
+                            <DatePicker onChange={this.dataChange} />
                         )}
+                    </FormItem>
+                    <FormItem
+                        label="Category"
+                        labelCol={{ span: 5 }}
+                        wrapperCol={{ span: 12 }}
+                    >
+                        {this.state.category ? getFieldDecorator('category', {
+                            rules: [{ required: true, message: 'Please select your gender!' }],
+                        })(
+
+                            < Select
+                                placeholder="Select category"
+                                onChange={this.handleSelectChange}
+                            >
+                                {this.state.category.map(cat => {
+                                    return <Option value={cat.id}>{cat.name}</Option>
+                                })}
+                            </Select>
+                        ) : null}
                     </FormItem>
                     <FormItem
                         label="Title"
@@ -98,7 +100,7 @@ class FormPaiments extends React.Component {
                         labelCol={{ span: 5 }}
                         wrapperCol={{ span: 12 }}
                     >
-                        <Input name="description" placeholder="Enter some content..." />
+                        <Input name="price" placeholder="Enter some content..." />
                     </FormItem>
                     <FormItem>
                         <div className="add-button"><Button type="primary" htmlType="submit">Add</Button></div>
