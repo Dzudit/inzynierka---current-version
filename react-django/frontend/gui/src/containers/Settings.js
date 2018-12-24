@@ -2,14 +2,13 @@ import React from 'react';
 import { Form, Input, Button } from 'antd';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import Salary from '../components/salary';
 
 const FormItem = Form.Item;
 
 class Settings extends React.Component {
 
-    state = {
-        salary: null
-    }
+    state = {}
 
     handleFormSubmit = (event) => {
         event.preventDefault();
@@ -27,7 +26,7 @@ class Settings extends React.Component {
         axios.get('http://localhost:8000/api/user/')
             .then(res => {
                 console.log("resp settings", res);
-                this.setState({ salary: res.salary })
+                this.setState({ salary: res.data[0].salary })
             })
     }
 
@@ -35,7 +34,7 @@ class Settings extends React.Component {
         return (
             <div>
                 <div className="user"> Take control of your finances! </div>
-                <div className="salary"> Your salary is: {this.state.salary} </div>
+                <Salary salary={this.state.salary} />
                 <div className="settings">
                     <Form onSubmit={event => this.handleFormSubmit(event, this.props.reqType, this.props.fieldID)} >
                         <FormItem
