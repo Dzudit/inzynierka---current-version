@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import UserDetails, Category, Payment, MonthDetails, SavingGoals
+from api.models import UserDetails, Category, Payment, MonthDetails
 from django.contrib.auth.models import User
 
 
@@ -25,13 +25,6 @@ class MonthDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = MonthDetails
         fields = ("id", "month", "salary", "user")
-
-
-class SavingGoalsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SavingGoals
-        fields = ("id", "goal", "category", "user")
-
 
 class PaymentMonthSummarySingleSerializer(serializers.Serializer):
     name = serializers.CharField(read_only=True)

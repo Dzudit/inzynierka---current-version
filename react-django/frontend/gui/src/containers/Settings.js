@@ -15,10 +15,7 @@ class Settings extends React.Component {
         event.preventDefault();
         const salary = event.target.elements.salary.value
         if (!isNaN(salary) && salary > 30) {
-            axios.defaults.headers = {
-                "Access-Control-Allow-Origin": "http://192.168.1.102:8000"
-            }
-            axios.put(`http://192.168.1.102:8000/api/user/list/`, {
+            axios.put(`http://localhost:8000/api/user/1/update/`, {
                 salary: salary
             })
                 .then(res => { this.setState({ salary: salary }) })
@@ -27,7 +24,7 @@ class Settings extends React.Component {
     }
 
     componentWillMount() {
-        axios.get('http://192.168.1.102:8000/api/user/')
+        axios.get('http://localhost:8000/api/user/')
             .then(res => {
                 console.log("resp settings", res);
                 this.setState({ salary: res.salary })

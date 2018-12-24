@@ -13,7 +13,7 @@ class FormCategory extends React.Component {
         const amount = event.target.elements.amount.value;
         const name = event.target.elements.name.value;
         if (name && !isNaN(amount) && amount > 0 && this.state.select) {
-            axios.post(`http://192.168.1.102:8000/api/category/create/`, {
+            axios.post(`http://localhost:8000/api/category/create/`, {
                 "name": name, "price": amount, "type": this.state.select
             })
                 .then(res => { })

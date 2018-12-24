@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.models import UserDetails, MonthDetails, Category, Payment
-from .serializers import CategorySerializer, UserDetailSerializer, MonthDetailsSerializer, SavingGoalsSerializer, \
+from .serializers import CategorySerializer, UserDetailSerializer, MonthDetailsSerializer, \
     PaymentSerializer, PaymentMonthSummarySingleSerializer, \
     PaymentsCategoriesYearSummarySerializer, PaymentsSavingSummarySerializer
 
