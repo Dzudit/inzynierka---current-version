@@ -12,7 +12,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('id', 'type', 'user', 'limit', 'deleted')
+        fields = ('id', 'name', 'type', 'limit', 'deleted')
 
 
 class PaymentSerializer(serializers.ModelSerializer):
