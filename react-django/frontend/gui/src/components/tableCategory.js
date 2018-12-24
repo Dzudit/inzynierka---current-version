@@ -9,21 +9,11 @@ const columns = [{
     dataIndex: 'name',
 }, {
     title: 'type',
-    dataIndex: 'age',
+    dataIndex: 'type',
 }, {
-    title: 'limit/amount',
-    dataIndex: 'address',
+    title: 'limit',
+    dataIndex: 'limit',
 }];
-
-const data = [];
-for (let i = 10; i < 18; i++) {
-    data.push({
-        key: i,
-        name: `jedzenie ${i}`,
-        age: "savings",
-        address: `700  ${i}`,
-    });
-}
 
 class TableCategory extends React.Component {
     state = {
@@ -45,14 +35,14 @@ class TableCategory extends React.Component {
 
     delete = () => {
         this.state.selectedRowKeys.forEach(element => {
-            axios.delete(`http://127.0.0.1:8000/api/category/${element}/delete`)
+            axios.put(`http://localhost:8000/api/category/${element}/delete`)
         });
         this.start();
     }
 
-    componentWillMount() {
-        axios.get('http://127.0.0.1:8000/api/category').then(resp =>
-            console.log("resp", resp)
+    componentWillReceiveProps(props) {
+        axios.get('http://localhost:8000/api/category/').then(resp =>
+            this.setState({ data: resp.data })
         )
     }
 
@@ -93,7 +83,7 @@ class TableCategory extends React.Component {
                         {hasSelected ? `Selected ${selectedRowKeys.length} items` : ''}
                     </span>
                 </div>
-                <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+                <Table rowSelection={rowSelection} columns={columns} dataSource={this.state.data} />
             </div>
         );
     }

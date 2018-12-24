@@ -9,14 +9,19 @@ const Option = Select.Option;
 class FormCategory extends React.Component {
 
     handleFormSubmit = (event, reqType, fieldID) => {
+
         event.preventDefault();
         const amount = event.target.elements.amount.value;
         const name = event.target.elements.name.value;
+        this.props.update();
         if (name && !isNaN(amount) && amount > 0 && this.state.select) {
             axios.post(`http://localhost:8000/api/category/create/`, {
-                "name": name, "price": amount, "type": this.state.select
+                "name": name, "limit": amount, "type": this.state.select
             })
-                .then(res => { })
+                .then(res => {
+                    console.log("added", this.props);
+
+                })
                 .catch(er => console.error(er))
         }
     }
@@ -48,7 +53,7 @@ class FormCategory extends React.Component {
                                 placeholder="Select category"
                                 onChange={this.handleSelectChange}
                             >
-                                <Option value="paiments">paiments</Option>
+                                <Option value="payments">payments</Option>
                                 <Option value="savings">savings</Option>
                             </Select>
                         )}
