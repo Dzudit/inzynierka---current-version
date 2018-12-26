@@ -36,8 +36,8 @@ class UserDetailsUpdateView(generics.RetrieveUpdateAPIView):
         )
 
         if obj:
-            obj.salary = user_details.salary
-            obj.save()
+            #obj.salary = user_details.salary
+            #obj.save()
             MonthDetails.objects.filter(user=user_details,
                                         month__gte=month,
                                         year=year).update(salary=user_details.salary)
