@@ -19,7 +19,7 @@ class FormPaiments extends React.Component {
         const price = event.target.elements.price.value
         if (this.state.selectedCategory && !isNaN(price) && price > 0 && this.state.SelectedDate) {
             axios.post(`http://localhost:8000/api/payments/create/`, {
-                "title": title, "price": price, "date": this.state.SelectedDate, "category": this.state.category[this.state.selectedCategory]
+                "title": title, "price": price, "date": this.state.SelectedDate, "category_id": this.state.category[this.state.selectedCategory].id
             })
                 .then(res => {
                     console.log("added", this.props);
