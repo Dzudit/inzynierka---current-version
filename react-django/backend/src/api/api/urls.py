@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from api.api.views import UserDetailsUpdateView, UserDetailListView, CategoryListView, CategoryCreateView, \
-    CategoryUpdateView, CategoryDeleteView, PaymentsListView, PaymentsCreateView, PaymentsUpdateView, \
+    CategoryUpdateView, CategoryDeleteView, PaymentsListView, PaymentsCreateView, \
     PaymentsDeleteView, PaymentsSummaryCategoryPerMonth, PaymentsCategoryDuringYearView, PaymentsSavingSummaryView
 
 urlpatterns = [
@@ -30,7 +30,6 @@ urlpatterns = [
 
     url(r'payments/$', PaymentsListView.as_view()),
     url(r'payments/create/', PaymentsCreateView.as_view()),
-    url(r'payments/(?P<pk>\d+)/update/', PaymentsUpdateView.as_view()),
     url(r'payments/(?P<pk>\d+)/delete/', PaymentsDeleteView.as_view()),
 
     url(r'payments/summary/(?P<month>\d+)/', PaymentsSummaryCategoryPerMonth.as_view()),

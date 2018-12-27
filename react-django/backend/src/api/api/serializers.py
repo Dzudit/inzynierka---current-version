@@ -14,12 +14,18 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         fields = ('id', 'name', 'type', 'limit', 'deleted')
 
-
 class PaymentSerializer(serializers.ModelSerializer):
+    category = CategorySerializer(many = False)
     class Meta:
         model = Payment
-        fields = ('id', 'date', 'price', 'title')
+        fields = ('id', 'date', 'price', 'title', 'category') 
 
+    def create(self, validated_data):
+        tracks_data = validated_data.pop('category')
+        album = Category.objects.create(**validated_data)
+        for track_data in tracks_data:
+            Track.objects.create(category=album, **track_data)
+        return album              
 
 class MonthDetailsSerializer(serializers.ModelSerializer):
     class Meta:

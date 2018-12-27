@@ -82,11 +82,6 @@ class PaymentsCreateView(generics.CreateAPIView):
     queryset = Payment.objects.all()
 
 
-class PaymentsUpdateView(generics.UpdateAPIView):
-    serializer_class = PaymentSerializer
-    queryset = Payment.objects.all()
-
-
 class PaymentsDeleteView(generics.DestroyAPIView):
     serializer_class = PaymentSerializer
     queryset = Payment.objects.all()
