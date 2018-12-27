@@ -38,7 +38,7 @@ class Payment(models.Model):
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return f'{self.date}, {self.price}, {self.title}'
+        return f'{self.date}, {self.price}, {self.title}, {self.category}'
 
 
 class MonthDetails(models.Model):
