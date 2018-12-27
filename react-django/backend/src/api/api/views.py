@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 
 from api.models import UserDetails, MonthDetails, Category, Payment
 from .serializers import CategorySerializer, UserDetailSerializer, MonthDetailsSerializer, \
-    PaymentSerializer, PaymentMonthSummarySingleSerializer, \
+    PaymentSerializer, PaymentDetailsSerializer, PaymentMonthSummarySingleSerializer, \
     PaymentsCategoriesYearSummarySerializer, PaymentsSavingSummarySerializer
 
 
@@ -78,7 +78,7 @@ class PaymentsListView(generics.ListAPIView):
 
 
 class PaymentsCreateView(generics.CreateAPIView):
-    serializer_class = PaymentSerializer
+    serializer_class = PaymentDetailsSerializer
     queryset = Payment.objects.all()
 
 
