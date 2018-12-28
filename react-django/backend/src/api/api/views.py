@@ -67,7 +67,7 @@ class CategoryUpdateView(generics.UpdateAPIView):
     queryset = Category.objects.all()
 
 
-class CategoryDeleteView(generics.DestroyAPIView):
+class CategoryDeleteView(generics.UpdateAPIView):
     serializer_class = CategorySerializer
     queryset = Category.objects.all()
 
@@ -129,11 +129,28 @@ class PaymentsSavingSummaryView(APIView):
     def get(self, request):
         payments = []
 
-        for month in range(1, 12):
+        salaryStorage =  UserDetails.objects.get().salary
+
+        for month in range(1, 13):
             try:
                 salary = MonthDetails.objects.get(month=month).salary
+                salaryStorage = salary
+                payments.append(
+                    {
+                        "month": month,
+                        "salary": salary,
+                        "payments": Payment.objects.filter(
+                            category__type='payments',
+                            date__month=month,
+                        ).aggregate(Sum("price"))["price__sum"],
+                        "savings": Payment.objects.filter(
+                            category__type="savings",
+                            date__month=month
+                        ).aggregate(Sum("price"))["price__sum"]
+                    }
+                )                
             except MonthDetails.DoesNotExist:
-                salary = 0
+                salary = salaryStorage
                 payments.append(
                     {
                         "month": month,

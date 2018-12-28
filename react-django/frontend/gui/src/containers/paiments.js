@@ -18,6 +18,7 @@ class Paiments extends Component {
     }
 
     getPayments = () => {
+        console.log("get payments before");
         axios.get('http://localhost:8000/api/payments/').then(resp => {
             let dataParsed = resp.data.map(e => {
                 let element = e;
@@ -25,16 +26,18 @@ class Paiments extends Component {
                 return element;
             })
             this.setState({ data: dataParsed })
+            console.log("get payments", this.state.data);
         }
         )
     }
 
     delete = (selectedRowKeys, data) => {
+        console.log("delete");
         selectedRowKeys.forEach(element => {
             let id = data[element].id;
             axios.delete(`http://localhost:8000/api/payments/${id}/delete/`)
         })
-        setTimeout(this.getPayments(), 1000);
+        setTimeout(this.getPayments, 1000);
     }
 
     create = (title, price, date, category) => {
@@ -53,11 +56,11 @@ class Paiments extends Component {
         return (
             <div className="cont-paiments">
                 <div className="add">
-                    <FormPaiments create={this.create} delete={this.delete} data={this.state.data} />
+                    <FormPaiments create={this.create} data={this.state.data} />
                     <ProgessCircle salary={this.state.salary} />
                 </div>
                 <div className="table">
-                    <TablePaiments data={this.state.data} />
+                    <TablePaiments data={this.state.data} delete={this.delete} />
                 </div>
             </div>
         );

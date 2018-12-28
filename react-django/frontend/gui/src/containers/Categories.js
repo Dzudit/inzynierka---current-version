@@ -19,6 +19,16 @@ class Categories extends Component {
         }
     }
 
+    delete = (selectedRowKeys, data) => {
+        selectedRowKeys.forEach(element => {
+            let params = data[element];
+            params.deleted = true;
+            axios.put(`http://localhost:8000/api/category/${params.id}/delete/`, params)
+        });
+        setTimeout(this.getCategory, 1000);
+
+    }
+
     componentWillMount() {
         this.getCategory()
         axios.get('http://localhost:8000/api/user/')
@@ -64,7 +74,7 @@ class Categories extends Component {
                     <ProgressBar salary={this.state.salary} sum={this.state.sum} update={this.update} />
                 </div>
                 <div className="table">
-                    <TableCategory data={this.state.data} />
+                    <TableCategory data={this.state.data} delete={this.delete} />
                 </div>
             </div>
         );

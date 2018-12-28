@@ -35,9 +35,8 @@ class TableCategory extends React.Component {
     }
 
     delete = () => {
-        this.state.selectedRowKeys.forEach(element => {
-            axios.put(`http://localhost:8000/api/category/${element}/delete`)
-        });
+        console.log("props", this.props);
+        this.props.delete(this.state.selectedRowKeys, this.state.data);
         this.start();
     }
 
@@ -54,7 +53,6 @@ class TableCategory extends React.Component {
     }
 
     onSelectChange = (selectedRowKeys) => {
-        console.log('selectedRowKeys changed: ', selectedRowKeys);
         this.setState({ selectedRowKeys });
     }
 

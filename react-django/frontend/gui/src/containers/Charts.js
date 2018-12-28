@@ -4,8 +4,15 @@ import './Charts.css';
 import LineBarChart from '../components/LineBarChart';
 import YearChart from '../components/YearChart';
 import PercentChart from '../components/PieChart';
+import axios from 'axios';
 
 class Charts extends Component {
+
+    componentWillMount() {
+        axios.get(`http://localhost:8000/api/payments/summary/salary/`, {
+        })
+    }
+
     render() {
         return (
             <div>

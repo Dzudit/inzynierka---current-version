@@ -25,8 +25,8 @@ urlpatterns = [
     url(r'user/$', UserDetailListView.as_view(), name="list_users"),
     url(r'category/$', CategoryListView.as_view()),
     url(r'category/create/', CategoryCreateView.as_view()),
-    url(r'category/(?P<pk>\d+)/update/', CategoryUpdateView.as_view()),
     url(r'category/(?P<pk>\d+)/delete/', CategoryDeleteView.as_view()),
+    url(r'category/(?P<pk>\d+)/update/', CategoryUpdateView.as_view()),
 
     url(r'payments/$', PaymentsListView.as_view()),
     url(r'payments/create/', PaymentsCreateView.as_view()),

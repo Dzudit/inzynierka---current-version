@@ -1,6 +1,5 @@
 import { Table, Button } from 'antd';
 import React from 'react';
-import axios from 'axios';
 
 const columns = [{
     title: 'Data',
@@ -34,11 +33,7 @@ class TablePaiments extends React.Component {
     }
 
     delete = () => {
-        /* this.state.selectedRowKeys.forEach(element => {
-             let id = this.state.data[element].id;
-             axios.delete(`http://localhost:8000/api/payments/${id}/delete/`)
-         })*/
-        this.props.delete(this.start.selectedRowKeys, this.start.data);
+        this.props.delete(this.state.selectedRowKeys, this.state.data);
         this.start();
     }
 
@@ -47,7 +42,7 @@ class TablePaiments extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-
+        console.log("retriveprops", props);
         if (props.data) {
             this.setState({ data: props.data })
         }

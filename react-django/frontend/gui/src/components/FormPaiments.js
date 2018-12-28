@@ -76,9 +76,11 @@ class FormPaiments extends React.Component {
                                 placeholder="Select category"
                                 onChange={this.handleSelectChange}
                             >
-                                {this.state.category.map(cat => {
-                                    return <Option value={cat.id}>{cat.name}</Option>
-                                })}
+                                {this.state.category
+                                    .filter(cat => { return cat.deleted == false })
+                                    .map(cat => {
+                                        return <Option value={cat.id}>{cat.name}</Option>
+                                    })}
                             </Select>
                         ) : null}
                     </FormItem>
