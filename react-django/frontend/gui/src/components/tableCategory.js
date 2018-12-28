@@ -64,7 +64,6 @@ class TableCategory extends React.Component {
         const hasSelected = selectedRowKeys.length > 0;
         return (
             <div>
-                <UpdatedCategory />
                 <div style={{ marginBottom: 16 }} className="button-table">
                     <Button
                         type="primary"

@@ -4,6 +4,8 @@ import TableCategory from '../components/tableCategory';
 import FormCategory from '../components/FormCategory';
 import axios from 'axios';
 import ProgressBar from '../components/progressBar';
+import { Row, Col } from 'antd';
+import UpdatedCategory from '../components/UpdatedCategory';
 
 class Categories extends Component {
 
@@ -67,13 +69,16 @@ class Categories extends Component {
     render() {
         return (
             <div className="cont-paiments">
-                <div className="add">
-                    <FormCategory create={this.create} />
-                    <ProgressBar salary={this.state.salary} sum={this.state.sum} progressdata={this.state.progressdata} />
-                </div>
-                <div className="table">
-                    <TableCategory data={this.state.data} delete={this.delete} />
-                </div>
+                <Row gutter={20}>
+                    <Col md={24} lg={12} className="chartContainer">
+                        <Row><Col lg={24}> <FormCategory create={this.create} /></Col> </Row>
+                        <Row><Col lg={24}><ProgressBar salary={this.state.salary} sum={this.state.sum} progressdata={this.state.progressdata} /></Col> </Row>
+                    </Col>
+                    <Col md={24} lg={12} className="chartContainer">
+                        <Row><Col lg={24}> <UpdatedCategory /></Col> </Row>
+                        <Row><Col lg={24}> <TableCategory data={this.state.data} delete={this.delete} /></Col> </Row>
+                    </Col>
+                </Row>
             </div>
         );
     }

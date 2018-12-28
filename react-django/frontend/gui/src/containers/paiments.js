@@ -4,6 +4,7 @@ import TablePaiments from '../components/table';
 import FormPaiments from '../components/FormPaiments';
 import axios from 'axios';
 import ProgessCircle from '../components/ProgessCircle';
+import { Row, Col } from 'antd';
 
 class Paiments extends Component {
 
@@ -57,13 +58,15 @@ class Paiments extends Component {
         //sumowac paymentsy dla miesiaca obecnego
         return (
             <div className="cont-paiments">
-                <div className="add">
-                    <FormPaiments create={this.create} data={this.state.data} />
-                    <ProgessCircle salary={this.state.salary} sum={this.state.sum} />
-                </div>
-                <div className="table">
-                    <TablePaiments data={this.state.data} delete={this.delete} />
-                </div>
+                <Row gutter={20}>
+                    <Col md={24} lg={12} className="chartContainer">
+                        <Row><Col lg={24}> <FormPaiments create={this.create} data={this.state.data} /></Col> </Row>
+                        <Row><Col lg={24}> <ProgessCircle salary={this.state.salary} sum={this.state.sum} /></Col> </Row>
+                    </Col>
+                    <Col md={24} lg={12} className="chartContainer">
+                        <Row><Col lg={24}> <TablePaiments data={this.state.data} delete={this.delete} /></Col> </Row>
+                    </Col>
+                </Row>
             </div>
         );
     }
