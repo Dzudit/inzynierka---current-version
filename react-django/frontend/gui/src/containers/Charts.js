@@ -44,13 +44,13 @@ class Charts extends Component {
         return (
             <div>
                 <Row gutter={20}>
-                    <Col span={12} className="chartContainer">
+                    <Col md={24} lg={12} className="chartContainer">
                         <div className="chartHeader"> Categories Statistic - current month</div>
                         <div>
                             <LineBarChart data={this.state.multiChart1} />
                         </div>
                     </Col>
-                    <Col span={12} className="chartContainer">
+                    <Col md={24} lg={12} className="chartContainer">
                         <div className="chartHeader"> Categories Statistic - previous month</div>
                         <div>
                             <LineBarChart data={this.state.multiChart2} />
@@ -58,11 +58,11 @@ class Charts extends Component {
                     </Col>
                 </Row>
                 <Row gutter={20}>
-                    <Col span={12} className="chartContainer">
+                    <Col md={24} lg={12} className="chartContainer">
                         <div className="chartHeader"> Percntage Categorys Statistic - 12 months</div>
                         <div><PercentChart data={this.state.pieChart} /></div>
                     </Col>
-                    <Col span={12} className="chartContainer">
+                    <Col md={24} lg={12} className="chartContainer">
                         <div className="chartHeader">Salary and Paiments Statistic - 12 months</div>
                         <div>
                             <YearChart data={this.state.yearChart} />

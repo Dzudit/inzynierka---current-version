@@ -10,15 +10,24 @@ class ProgressBar extends Component {
         sum: null
     }
 
-    ComponentWillMount() {
-        console.log("mount", this.props);
-    }
     getPercent = (limit, suma) => {
         return suma * 100 / limit;
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ salary: props.salary, sum: props.sum })
+        //limit: "5000.00"
+        //month: 12
+        //name: "rachunki"
+        //payments: "400.00"
+        console.log("progress", props.progressdata);
+        this.setState({ salary: props.salary, sum: props.sum, progressdata: props.progressdata })
+    }
+
+    getProgress(limit, value) {
+        let status = "active"
+        let color = "green"
+        if (value > limit) { status = "exception"; color = "red" }
+        return <Progress percent={this.getPercent(limit, value)} strokeColor={color} status={status} />
     }
 
     render() {
@@ -28,10 +37,9 @@ class ProgressBar extends Component {
                     "grey"}>{this.state.salary - this.state.sum} </spam> to plan, Salary {parseInt(this.state.salary ? this.state.salary : 0)}PLN</div>
                 <div>
                     <div className="categories-progres">
-
-                        samochod<Progress percent={30} strokeColor="yellow" status="active" />
-                        zdrowie<Progress percent={this.getPercent(4000, 50)} strokeColor="green" status="active" />
-                        konto niezaleznosci finansowej<Progress percent={40} status="exception" />
+                        {this.state.progressdata ? this.state.progressdata.map(e => {
+                            return <div>{e.name} {this.getProgress(e.limit, e.payments)}</div>
+                        }) : null}
                     </div>
                 </div>
             </div>

@@ -14,13 +14,13 @@ class YearChart extends Component {
     componentWillReceiveProps(props) {
         let sum = 0
         if (props.data) {
-            props.data.map(e => { sum += parseInt(e.payments) })
+            props.data.map(e => { e.payments ? sum += parseInt(e.payments) : sum += 0 })
             this.setState({
                 data: props.data.map(
                     e => {
                         let parseData = {}
                         parseData.name = e.name
-                        parseData.value = parseInt(e.payments * 100 / sum)
+                        parseData.value = e.payments ? parseInt(parseInt(e.payments) * 100 / sum) : 0
                         return parseData;
                     }
                 )

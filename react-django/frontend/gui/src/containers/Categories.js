@@ -35,16 +35,6 @@ class Categories extends Component {
             .then(res => {
                 this.setState({ salary: res.data[0].salary })
             })
-
-        axios.get(`http://localhost:8000/api/payments/summary/`, {
-            month: "current"
-        }).then(resp => {
-            let sum = 0;
-            resp.data.map(e => {
-                return sum = e.limit
-            })
-            this.setState({ data: resp.data, toPlan: sum });
-        })
     }
 
     getCategory = () => {
@@ -52,6 +42,14 @@ class Categories extends Component {
         axios.get('http://localhost:8000/api/category/').then(resp => {
             console.log("category", resp.data);
             this.setState({ data: resp.data, sum: this.getSumOfLimits(resp.data) });
+        })
+
+        var d = new Date();
+        var n = d.getMonth() + 1;
+        axios.get(`http://localhost:8000/api/payments/summary/${n}/`).then(resp => {
+            this.setState({
+                progressdata: resp.data
+            })
         })
     }
 
@@ -71,7 +69,7 @@ class Categories extends Component {
             <div className="cont-paiments">
                 <div className="add">
                     <FormCategory create={this.create} />
-                    <ProgressBar salary={this.state.salary} sum={this.state.sum} update={this.update} />
+                    <ProgressBar salary={this.state.salary} sum={this.state.sum} progressdata={this.state.progressdata} />
                 </div>
                 <div className="table">
                     <TableCategory data={this.state.data} delete={this.delete} />
