@@ -14,14 +14,14 @@ class ProgressCircle extends Component {
         console.log("mount", this.props);
     }
     componentWillReceiveProps(props) {
-        this.setState({ salary: props.salary })
+        this.setState({ salary: props.salary, sum: props.sum })
     }
 
     render() {
         return (
             <div>
                 <div className="progres">
-                    <Progress type="circle" percent={75} />
+                    <Progress type="circle" percent={parseInt(this.state.sum * 100 / this.state.salary)} />
                 </div>
                 <div className="limit">Salary: {parseInt(this.state.salary)}PLN</div>
             </div>

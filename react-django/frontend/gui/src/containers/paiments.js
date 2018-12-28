@@ -18,21 +18,23 @@ class Paiments extends Component {
     }
 
     getPayments = () => {
-        console.log("get payments before");
+        let sum = 0
         axios.get('http://localhost:8000/api/payments/').then(resp => {
             let dataParsed = resp.data.map(e => {
+                if (new Date(e.date).getMonth() === new Date().getMonth()) {
+                    sum += parseInt(e.price)
+                }
                 let element = e;
                 element.categoryName = e.category.name;
                 return element;
             })
-            this.setState({ data: dataParsed })
-            console.log("get payments", this.state.data);
+            this.setState({ data: dataParsed, sum: sum })
         }
         )
     }
 
     delete = (selectedRowKeys, data) => {
-        console.log("delete");
+
         selectedRowKeys.forEach(element => {
             let id = data[element].id;
             axios.delete(`http://localhost:8000/api/payments/${id}/delete/`)
@@ -57,7 +59,7 @@ class Paiments extends Component {
             <div className="cont-paiments">
                 <div className="add">
                     <FormPaiments create={this.create} data={this.state.data} />
-                    <ProgessCircle salary={this.state.salary} />
+                    <ProgessCircle salary={this.state.salary} sum={this.state.sum} />
                 </div>
                 <div className="table">
                     <TablePaiments data={this.state.data} delete={this.delete} />
