@@ -30,16 +30,36 @@ TriangleBar.propTypes = {
 };
 
 class LineBarChart extends Component {
+
+    state = {}
+
+    componentWillReceiveProps(props) {
+        if (props.data) {
+            // [{"name":"rachunki","month":11,"limit":"5000.00","payments":null},
+            this.setState({
+                data: props.data.map(
+                    e => {
+                        let parseData = {}
+                        parseData.value = e.payments ? parseInt(e.payments) : 0
+                        parseData.name = e.name
+                        parseData.limit = parseInt(e.limit)
+                        return parseData
+                    }
+                )
+            })
+        }
+    }
+
     render() {
         return (
-            <ComposedChart width={800} height={400} data={data}
+            <ComposedChart width={800} height={400} data={this.state.data}
                 margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-                <XAxis dataKey="title" />
+                <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
                 <Line type='monotone' dataKey='limit' stroke='#e50000' />
                 <CartesianGrid strokeDasharray="3 3" />
-                <Bar dataKey="kwota" fill="#8884d8" shape={<TriangleBar />} label={{ position: 'top' }}>
+                <Bar dataKey="value" fill="#8884d8" shape={<TriangleBar />} label={{ position: 'top' }}>
                     {
                         data.map((entry, index) => (
                             <Cell key={`cell-${index}`} fill={colors[index % 20]} />

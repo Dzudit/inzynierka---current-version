@@ -55,4 +55,3 @@ class PaymentsSavingSummarySerializer(serializers.Serializer):
     salary = serializers.DecimalField(read_only=True, decimal_places=2, max_digits=10)
     payments = serializers.DecimalField(read_only=True, decimal_places=2, max_digits=10)
     savings = serializers.DecimalField(read_only=True, decimal_places=2, max_digits=10)
-

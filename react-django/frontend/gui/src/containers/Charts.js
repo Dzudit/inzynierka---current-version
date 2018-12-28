@@ -20,6 +20,24 @@ class Charts extends Component {
                 })
             });
         })
+        axios.get(`http://localhost:8000/api/payments/summary/year/`).then(resp => {
+            console.log("resp", resp.data)
+            this.setState({
+                pieChart: resp.data
+            })
+        });
+        var d = new Date();
+        var n = d.getMonth();
+        axios.get(`http://localhost:8000/api/payments/summary/${n + 1}/`).then(resp => {
+            this.setState({
+                multiChart1: resp.data
+            })
+        });
+        axios.get(`http://localhost:8000/api/payments/summary/${n}/`).then(resp => {
+            this.setState({
+                multiChart2: resp.data
+            })
+        });
     }
 
     render() {
@@ -27,22 +45,22 @@ class Charts extends Component {
             <div>
                 <Row gutter={20}>
                     <Col span={12} className="chartContainer">
-                        <div className="chartHeader"> Fields Statistic - current month</div>
+                        <div className="chartHeader"> Categories Statistic - current month</div>
                         <div>
-                            <LineBarChart />
+                            <LineBarChart data={this.state.multiChart1} />
                         </div>
                     </Col>
                     <Col span={12} className="chartContainer">
-                        <div className="chartHeader"> Fields Statistic - previous month</div>
+                        <div className="chartHeader"> Categories Statistic - previous month</div>
                         <div>
-                            <LineBarChart />
+                            <LineBarChart data={this.state.multiChart2} />
                         </div>
                     </Col>
                 </Row>
                 <Row gutter={20}>
                     <Col span={12} className="chartContainer">
-                        <div className="chartHeader"> Percntage Fields Statistic - 12 months</div>
-                        <div><PercentChart /></div>
+                        <div className="chartHeader"> Percntage Categorys Statistic - 12 months</div>
+                        <div><PercentChart data={this.state.pieChart} /></div>
                     </Col>
                     <Col span={12} className="chartContainer">
                         <div className="chartHeader">Salary and Paiments Statistic - 12 months</div>

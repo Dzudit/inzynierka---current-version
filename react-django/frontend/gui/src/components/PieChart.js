@@ -5,15 +5,35 @@ const data = [{ name: 'jedzenie', value: 400 }, { name: 'chemia', value: 300 },
 { name: 'ubrania', value: 300 }, { name: 'wydatki nieregularne', value: 700 }];
 
 
-const COLORS = ["#1f77b4", "#ff7f0e", "#2ca02c", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"];
+const COLORS = ["#bcbd22", "#17becf", "#1f77b4", "#ff7f0e", "#2ca02c", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f"];
 
 class YearChart extends Component {
+
+    state = {}
+
+    componentWillReceiveProps(props) {
+        let sum = 0
+        if (props.data) {
+            props.data.map(e => { sum += parseInt(e.payments) })
+            this.setState({
+                data: props.data.map(
+                    e => {
+                        let parseData = {}
+                        parseData.name = e.name
+                        parseData.value = parseInt(e.payments * 100 / sum)
+                        return parseData;
+                    }
+                )
+            })
+        }
+    }
+
     render() {
         return (
             <PieChart width={1300} height={400} onMouseEnter={this.onPieEnter}>
                 <Tooltip />
                 <Pie
-                    data={data}
+                    data={this.state.data}
                     cx={300}
                     cy={200}
                     labelLine={false}

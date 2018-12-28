@@ -2,7 +2,6 @@ import { Table, Button } from 'antd';
 import React from 'react';
 import UpdatedCategory from './UpdatedCategory';
 import './style.css';
-import axios from 'axios';
 
 const columns = [{
     title: 'Name',

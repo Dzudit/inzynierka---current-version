@@ -90,14 +90,14 @@ class PaymentsDeleteView(generics.DestroyAPIView):
 class PaymentsSummaryCategoryPerMonth(APIView):
     def get(self, request, month):
         payments = []
-        for category in Category.objects.all():
+        Categories = Category.objects.all().filter(deleted=False)
+        for category in Categories:
             payments.append(
                 {
                     "name": category.name,
                     "month": month,
                     "limit": category.limit,
                     "payments": Payment.objects.filter(category=category,
-                                                       category__type="payments",
                                                        date__month=month).aggregate(Sum('price'))['price__sum']
                 }
             )
@@ -110,8 +110,9 @@ class PaymentsCategoryDuringYearView(APIView):
 
     def get(self, request):
         payments = []
-
-        for category in Category.objects.all():
+        
+        Categories = Category.objects.all().filter(deleted=False)
+        for category in Categories:
             payments.append(
                 {
                     "name": category.name,
