@@ -6,24 +6,26 @@ import './style.css';
 class ProgressBar extends Component {
 
     state = {
-        salary: null
+        salary: null,
+        sum: null
     }
 
-    ComponentDidMount() {
-        this.props.onTryAutoSignup();
+    ComponentWillMount() {
+        console.log("mount", this.props);
     }
     getPercent = (limit, suma) => {
         return suma * 100 / limit;
     }
 
     componentWillReceiveProps(props) {
-        this.setState({ salary: props.salary })
+        this.setState({ salary: props.salary, sum: props.sum })
     }
 
     render() {
         return (
             <div>
-                <div className="limitCat">You have 700PLN to plan, Salary {this.state.salary ? this.state.salary : 99}PLN</div>
+                <div className="limitCat">You have <spam className={this.state.salary - this.state.sum > 0 ? "green" : this.state.salary - this.state.sum ? "red" :
+                    "grey"}>{this.state.salary - this.state.sum} </spam> to plan, Salary {parseInt(this.state.salary ? this.state.salary : 0)}PLN</div>
                 <div>
                     <div className="categories-progres">
 

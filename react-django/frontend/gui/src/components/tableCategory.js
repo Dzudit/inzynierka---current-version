@@ -41,10 +41,16 @@ class TableCategory extends React.Component {
         this.start();
     }
 
+    componentDidMount() {
+        console.log("mountCategory");
+    }
+
     componentWillReceiveProps(props) {
-        axios.get('http://localhost:8000/api/category/').then(resp =>
-            this.setState({ data: resp.data })
-        )
+        console.log("propsCategory", props);
+        if (props.data) {
+            let currentData = props.data.filter(e => { return e.deleted == false });
+            this.setState({ data: currentData })
+        }
     }
 
     onSelectChange = (selectedRowKeys) => {

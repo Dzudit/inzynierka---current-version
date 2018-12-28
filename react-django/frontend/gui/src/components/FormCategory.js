@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, Input, Button, Select } from 'antd';
-import axios from 'axios';
 
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -12,19 +11,12 @@ class FormCategory extends React.Component {
 
         event.preventDefault();
         const amount = event.target.elements.amount.value;
-        const name = event.target.elements.name.value;
-        this.props.update();
+        const name = event.target.elements.name.value;;
         if (name && !isNaN(amount) && amount > 0 && this.state.select) {
-            axios.post(`http://localhost:8000/api/category/create/`, {
-                "name": name, "limit": amount, "type": this.state.select
-            })
-                .then(res => {
-                    console.log("added", this.props);
-
-                })
-                .catch(er => console.error(er))
+            this.props.create(name, amount, this.state.select);
         }
     }
+
     handleSelectChange = (value) => {
         this.setState({ select: value });
     }
