@@ -17,17 +17,23 @@ const renderCustomizedLabel = (props) => {
         </g>
     );
 };
+
+
 class PercentChart extends Component {
+    state = {}
+    componentWillReceiveProps(props) {
+        this.setState({ data: props.data })
+    }
     render() {
         return (
-            <BarChart width={800} height={400} data={data}
+            <BarChart width={800} height={400} data={this.state.data}
                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="month" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="expenses" fill="#ed80a2" minPointSize={5}>
+                <Bar dataKey="payments" fill="#ed80a2" minPointSize={5}>
                     <LabelList dataKey="name" content={renderCustomizedLabel} />
                 </Bar>
                 <Bar dataKey="salary" fill="#80c8ed" minPointSize={10} />

@@ -8,8 +8,17 @@ import axios from 'axios';
 
 class Charts extends Component {
 
+    state = {
+    }
+
     componentWillMount() {
-        axios.get(`http://localhost:8000/api/payments/summary/salary/`, {
+        axios.get(`http://localhost:8000/api/payments/summary/salary/`).then(resp => {
+            this.setState({
+                yearChart: resp.data.filter(e => {
+                    return e.payments
+                        || e.savings
+                })
+            });
         })
     }
 
@@ -38,7 +47,7 @@ class Charts extends Component {
                     <Col span={12} className="chartContainer">
                         <div className="chartHeader">Salary and Paiments Statistic - 12 months</div>
                         <div>
-                            <YearChart />
+                            <YearChart data={this.state.yearChart} />
                         </div>
                     </Col>
                 </Row>
