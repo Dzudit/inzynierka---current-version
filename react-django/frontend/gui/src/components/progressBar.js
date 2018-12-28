@@ -15,11 +15,6 @@ class ProgressBar extends Component {
     }
 
     componentWillReceiveProps(props) {
-        //limit: "5000.00"
-        //month: 12
-        //name: "rachunki"
-        //payments: "400.00"
-        console.log("progress", props.progressdata);
         this.setState({ salary: props.salary, sum: props.sum, progressdata: props.progressdata })
     }
 

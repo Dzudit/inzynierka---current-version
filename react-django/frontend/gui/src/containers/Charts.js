@@ -21,7 +21,7 @@ class Charts extends Component {
             });
         })
         axios.get(`http://localhost:8000/api/payments/summary/year/`).then(resp => {
-            console.log("resp", resp.data)
+
             this.setState({
                 pieChart: resp.data
             })

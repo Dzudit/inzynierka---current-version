@@ -42,7 +42,6 @@ class TablePaiments extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        console.log("retriveprops", props);
         if (props.data) {
             this.setState({ data: props.data })
         }

@@ -12,11 +12,10 @@ class Details extends Component {
     }
 
     componentDidMount() {
-        console.log("Details");
         const fieldID = this.props.match.params.fieldID;
         axios.get(`http://127.0.0.1:8000/api/${fieldID}/`)
             .then(res => {
-                console.log("zapytanie");
+
                 this.setState({ field: res.data })
             })
     }

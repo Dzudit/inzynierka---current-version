@@ -25,7 +25,6 @@ class Settings extends React.Component {
     componentWillMount() {
         axios.get('http://localhost:8000/api/user/')
             .then(res => {
-                console.log("resp settings", res);
                 this.setState({ salary: res.data[0].salary })
             })
     }

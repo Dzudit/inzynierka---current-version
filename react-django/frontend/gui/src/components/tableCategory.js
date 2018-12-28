@@ -1,6 +1,5 @@
 import { Table, Button } from 'antd';
 import React from 'react';
-import UpdatedCategory from './UpdatedCategory';
 import './style.css';
 
 const columns = [{
@@ -22,7 +21,6 @@ class TableCategory extends React.Component {
     };
 
     start = () => {
-        console.log("start");
         this.setState({ loading: true });
         // ajax request after empty completing
         setTimeout(() => {
@@ -34,17 +32,12 @@ class TableCategory extends React.Component {
     }
 
     delete = () => {
-        console.log("props", this.props);
         this.props.delete(this.state.selectedRowKeys, this.state.data);
         this.start();
     }
 
-    componentDidMount() {
-        console.log("mountCategory");
-    }
 
     componentWillReceiveProps(props) {
-        console.log("propsCategory", props);
         if (props.data) {
             let currentData = props.data.filter(e => { return e.deleted == false });
             this.setState({ data: currentData })

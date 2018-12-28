@@ -5,7 +5,6 @@ class Salary extends Component {
     state = {}
 
     componentWillReceiveProps(props) {
-        console.log(props);
         this.setState({ salary: props.salary })
     }
 

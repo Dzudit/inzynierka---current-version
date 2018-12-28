@@ -40,9 +40,8 @@ class Categories extends Component {
     }
 
     getCategory = () => {
-        console.log("getCategory");
         axios.get('http://localhost:8000/api/category/').then(resp => {
-            console.log("category", resp.data);
+
             this.setState({ data: resp.data, sum: this.getSumOfLimits(resp.data) });
         })
 
@@ -59,7 +58,6 @@ class Categories extends Component {
         axios.post(`http://localhost:8000/api/category/create/`, {
             "name": name, "limit": amount, "type": type
         }).then(res => {
-            console.log("create");
             setTimeout(this.getCategory(), 1000);
         }
         )

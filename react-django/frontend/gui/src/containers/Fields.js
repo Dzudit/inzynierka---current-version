@@ -16,7 +16,6 @@ class Field extends Component {
         }
         axios.get('http://127.0.0.1:8000/api/')
             .then(res => {
-                console.log("res", res);
                 this.setState({ fields: res.data })
             })
     }

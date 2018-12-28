@@ -16,7 +16,6 @@ class CustomForm extends React.Component {
                     title: dupa,
                     description: dupa2
                 })
-                    .then(res => console.log(res))
                     .catch(er => console.error(er))
 
             case 'put':
@@ -24,7 +23,6 @@ class CustomForm extends React.Component {
                     title: dupa,
                     description: dupa2
                 })
-                    .then(res => console.log(res))
                     .catch(er => console.error(er))
             default: return null
         }
