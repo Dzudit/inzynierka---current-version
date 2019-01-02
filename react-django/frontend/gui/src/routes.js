@@ -11,8 +11,7 @@ import Settings from './containers/Settings';
 
 const BaseRouter = () => (
     <div>
-        <Route exact path='/' component={Field} />
-        <Route exact path='/api/:fieldID' component={Details} />
+        <Route exact path='/' component={Login} />
         <Route exact path='/login/' component={Login} />
         <Route exact path='/signup/' component={Signup} />
         <Route exact path='/charts/' component={Charts} />
