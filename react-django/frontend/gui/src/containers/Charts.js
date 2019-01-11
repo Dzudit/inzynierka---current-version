@@ -33,6 +33,7 @@ class Charts extends Component {
                 multiChart1: resp.data
             })
         });
+        if (n == 0) { n = 12 }
         axios.get(`http://localhost:8000/api/payments/summary/${n}/`).then(resp => {
             this.setState({
                 multiChart2: resp.data
